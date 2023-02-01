@@ -30,6 +30,7 @@ Basic introduction to ARCore in Android
 
 [![N|Solid](https://cldup.com/dTxpPi9lDf.thumb.png)](https://medium.com/@codemaker2016/develop-your-helloar-app-in-android-studio-using-arcore-and-sceneform-ae9e1b7a1b5b)
 
+![demo](https://github.com/codemaker2015/ar-object-augmentation-android-studio/blob/master/demo/demo.gif)
 
 ## License
 
