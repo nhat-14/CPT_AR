@@ -107,7 +107,7 @@ public class Connection {
     String timestamp = context.getString(R.string.timestamp, args);
     history.add(action + timestamp);
 
-    notifyListeners(new PropertyChangeEvent(this, ActivityConstants.historyProperty, null, null));
+    notifyListeners(new PropertyChangeEvent(this, "history", null, null));
   }
 
 
@@ -125,7 +125,7 @@ public class Connection {
    */
   public void changeConnectionStatus(ConnectionStatus connectionStatus) {
     status = connectionStatus;
-    notifyListeners((new PropertyChangeEvent(this, ActivityConstants.ConnectionStatusProperty, null, null)));
+    notifyListeners((new PropertyChangeEvent(this, "connectionStatus", null, null)));
   }
 
   /**

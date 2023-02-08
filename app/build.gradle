@@ -37,10 +37,10 @@ dependencies {
     implementation 'androidx.work:work-runtime:2.8.0-rc01'
 }
 
-sceneform.asset('sampledata/dragon.fbx',
+sceneform.asset('sampledata/arrow.fbx',
         'default',
-        'sampledata/dragon.sfa',
-        'src/main/res/raw/dragon')
+        'sampledata/arrow.sfa',
+        'src/main/res/raw/arrow')
 
 sceneform.asset('sampledata/right.fbx',
         'default',

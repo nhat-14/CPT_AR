@@ -23,27 +23,32 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = MainActivity.class.getSimpleName();
-    private static final double MIN_OPENGL_VERSION = 3.0;
+//    private static final String TAG = MainActivity.class.getSimpleName();
+//    private static final double MIN_OPENGL_VERSION = 3.0;
 
     ArFragment arFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
-        float[] rotation = { 0, (float) 0.707, 0, (float) 0.707};
+
         arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.ux_fragment);
+
+        // Method invocation 'setOnTapArPlaneListener' may produce 'NullPointerException'
+        assert arFragment != null;
         arFragment.setOnTapArPlaneListener(
                 (HitResult hitresult, Plane plane, MotionEvent motionevent) -> {
+                    //Ignore if tap not on horizontal plane facing upward (e.g. floor or tabletop)
                     if (plane.getType() != Plane.Type.HORIZONTAL_UPWARD_FACING)
                         return;
 
+                    //Initial pose of the arrow (virtual object)
                     float[] transl = hitresult.getHitPose().getTranslation();
+                    float[] rotation = { 0, (float) 0.707, 0, (float) 0.707};
 
                     Anchor anchor = hitresult.getTrackable().createAnchor(new Pose(transl, rotation));
-                    placeObject(arFragment, anchor, R.raw.dragon);
+                    placeObject(arFragment, anchor, R.raw.arrow);
                 }
         );
         connectAction();
@@ -69,11 +74,6 @@ public class MainActivity extends AppCompatActivity {
         arFragment.getArSceneView().getScene().addChild(anchorNode);
         node.select();
     }
-
-
-
-
-
 
 
     @Override
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void connectAction() {
         MqttConnectOptions conOpt = new MqttConnectOptions();
-        String server = "192.168.1.88";
+        String server = "192.168.0.136";
         String clientId = "Ogawa";
         int port = 1883;
         boolean cleanSession = false;
@@ -143,18 +143,14 @@ public class MainActivity extends AppCompatActivity {
 
         boolean doConnect = true;
 
-        if ((!message.equals(ActivityConstants.empty))
-                || (!topic.equals(ActivityConstants.empty))) {
-            // need to make a message since last will is set
-            try {
-                conOpt.setWill(topic, message.getBytes(), qos.intValue(),
-                        retained.booleanValue());
-            }
-            catch (Exception e) {
-                Log.e(this.getClass().getCanonicalName(), "Exception Occured", e);
-                doConnect = false;
-                callback.onFailure(null, e);
-            }
+        // need to make a message since last will is set
+        try {
+            conOpt.setWill(topic, message.getBytes(), qos.intValue(), retained.booleanValue());
+        }
+        catch (Exception e) {
+            Log.e(this.getClass().getCanonicalName(), "Exception Occured", e);
+            doConnect = false;
+            callback.onFailure(null, e);
         }
         client.setCallback(new MqttCallbackHandler(this, clientHandle));
 
