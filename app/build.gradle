@@ -20,7 +20,7 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'androidx.appcompat:appcompat:1.6.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
@@ -29,18 +29,23 @@ dependencies {
     implementation 'com.google.ar:core:1.35.0'
 
     // Eclipse MQTT libraries
-    implementation 'org.eclipse.paho:org.eclipse.paho.android.service:1.1.1'
+//    implementation 'org.eclipse.paho:org.eclipse.paho.android.service:1.1.1'
+    implementation files('libs/serviceLibrary-release.aar')
     implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5'
 
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
     implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.1.0'
     implementation 'androidx.work:work-runtime:2.8.0-rc01'
+
+    // Ltimber libraries
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:7.1.0'
+    implementation 'com.jakewharton.timber:timber:4.7.1'
 }
 
-sceneform.asset('sampledata/dragon.fbx',
+sceneform.asset('sampledata/arrow.fbx',
         'default',
-        'sampledata/dragon.sfa',
-        'src/main/res/raw/dragon')
+        'sampledata/arrow.sfa',
+        'src/main/res/raw/arrow')
 
 sceneform.asset('sampledata/right.fbx',
         'default',
