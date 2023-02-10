@@ -16,7 +16,8 @@ import com.google.ar.sceneform.rendering.Renderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
 
-import org.eclipse.paho.android.service.MqttAndroidClient;
+import info.mqtt.android.service.MqttAndroidClient;
+//import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 
@@ -84,7 +85,8 @@ public class MainActivity extends AppCompatActivity {
 
         //Register receivers again
         for (Connection connection : connections.values()){
-            connection.getClient().registerResources(this);
+//            connection.getClient().registerResources(this);
+            connection.getClient().registerResources();
             connection.getClient().setCallback(new MqttCallbackHandler(this, connection.getClient().getServerURI()+connection.getClient().getClientId()));
         }
     }
@@ -158,13 +160,14 @@ public class MainActivity extends AppCompatActivity {
         connection.addConnectionOptions(conOpt);
         Connections.getInstance(this).addConnection(connection);
         if (doConnect) {
-            try {
-                client.connect(conOpt, null, callback);
-            }
-            catch (MqttException e) {
-                Log.e(this.getClass().getCanonicalName(),
-                        "MqttException Occured", e);
-            }
+            client.connect(conOpt, null, callback);
+//            try {
+//                client.connect(conOpt, null, callback);
+//            }
+//            catch (MqttException e) {
+//                Log.e(this.getClass().getCanonicalName(),
+//                        "MqttException Occured", e);
+//            }
         }
     }
 }

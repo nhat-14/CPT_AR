@@ -2,8 +2,9 @@ package com.example.arcorefirst;
 import java.util.HashMap;
 import java.util.Map;
 import android.content.Context;
-import org.eclipse.paho.android.service.MqttAndroidClient;
-
+//import org.eclipse.paho.android.service.MqttAndroidClient;
+import info.mqtt.android.service.MqttAndroidClient;
+import info.mqtt.android.service.Ack;
 /**
  * <code>Connections</code> is a singleton class which stores all the connection objects
  * in one central place so they can be passed between activities using a client handle
@@ -63,7 +64,7 @@ public class Connections {
    * @return new instance of MqttAndroidClient
    */
   public MqttAndroidClient createClient(Context context, String serverURI, String clientId) {
-    MqttAndroidClient client = new MqttAndroidClient(context, serverURI, clientId);
+    MqttAndroidClient client = new MqttAndroidClient(context, serverURI, clientId, Ack.AUTO_ACK);
     return client;
   }
 
