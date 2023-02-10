@@ -71,7 +71,7 @@ public class MqttCallbackHandler implements MqttCallback {
 
     //update client history
     c.addAction(messageString);
-    Log.d("HAHAHAHAHAHA", messageString);
+    Log.d("MSG FROM ARDUINO: ", messageString);
   }
 
   /**

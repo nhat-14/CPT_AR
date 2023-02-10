@@ -161,13 +161,6 @@ public class MainActivity extends AppCompatActivity {
         Connections.getInstance(this).addConnection(connection);
         if (doConnect) {
             client.connect(conOpt, null, callback);
-//            try {
-//                client.connect(conOpt, null, callback);
-//            }
-//            catch (MqttException e) {
-//                Log.e(this.getClass().getCanonicalName(),
-//                        "MqttException Occured", e);
-//            }
         }
     }
 }
